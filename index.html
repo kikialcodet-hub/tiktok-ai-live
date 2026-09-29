@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TikTok LIVE AI</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#0d0d12;color:#fff;font-family:Arial,sans-serif}
+.wrap{max-width:520px;margin:auto;padding:18px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+h1{font-size:22px;margin:0}.status{padding:7px 10px;border-radius:20px;background:#292932;font-size:12px}
+.card{background:#18181f;border:1px solid #2b2b35;border-radius:16px;padding:16px;margin:12px 0}
+label{display:block;font-size:13px;color:#aaa;margin:10px 0 6px}
+input,textarea,button{width:100%;border:0;border-radius:12px;padding:13px;font-size:15px}
+input,textarea{background:#25252e;color:#fff;outline:none}textarea{min-height:80px;resize:vertical}
+button{background:#fff;color:#111;font-weight:700;margin-top:12px}button.red{background:#e51d3e;color:#fff}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{background:#22222a;border-radius:12px;padding:12px;text-align:center}.num{font-size:20px;font-weight:700}.muted{font-size:11px;color:#999}
+.chat{height:280px;overflow:auto;background:#111116;border-radius:12px;padding:10px}.msg{padding:9px;border-bottom:1px solid #25252c}.ai{color:#9be7ff}
+small{color:#888}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><h1>🔴 TikTok LIVE AI</h1><span id="status" class="status">Offline</span></div>
+
+<div class="card">
+<label>Username TikTok</label>
+<input id="user" placeholder="contoh: usernamekamu">
+<label>Gaya AI</label>
+<textarea id="prompt">Ramah, singkat, bahasa Indonesia. Jawab komentar penonton secara sopan.</textarea>
+<button class="red" id="connect">Mulai LIVE AI</button>
+<small id="note">Dashboard siap. Koneksi LIVE membutuhkan backend TikTok yang berjalan di server.</small>
+</div>
+
+<div class="stats">
+<div class="stat"><div class="num" id="viewer">0</div><div class="muted">Viewer</div></div>
+<div class="stat"><div class="num" id="like">0</div><div class="muted">Like</div></div>
+<div class="stat"><div class="num" id="gift">0</div><div class="muted">Gift</div></div>
+</div>
+
+<div class="card">
+<h3>Komentar LIVE</h3>
+<div class="chat" id="chat"><div class="muted">Belum ada komentar.</div></div>
+</div>
+
+<div class="card">
+<label>Balasan AI manual</label>
+<input id="reply" placeholder="Tulis balasan...">
+<button id="speak">🔊 Bacakan</button>
+</div>
+</div>
+
+<script>
+const status=document.getElementById('status'), btn=document.getElementById('connect');
+btn.onclick=()=>{
+ const u=document.getElementById('user').value.trim();
+ if(!u){alert('Isi username TikTok dulu');return}
+ status.textContent='Menghubungkan…';
+ setTimeout(()=>{status.textContent='Siap'; btn.textContent='LIVE AI Aktif';},700);
+};
+document.getElementById('speak').onclick=()=>{
+ const t=document.getElementById('reply').value.trim();
+ if(t && 'speechSynthesis' in window) speechSynthesis.speak(new SpeechSynthesisUtterance(t));
+};
+</script>
+</body>
+</html>
